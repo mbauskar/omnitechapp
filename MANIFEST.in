@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include omnitechapp *.css
+recursive-include omnitechapp *.csv
+recursive-include omnitechapp *.html
+recursive-include omnitechapp *.ico
+recursive-include omnitechapp *.js
+recursive-include omnitechapp *.json
+recursive-include omnitechapp *.md
+recursive-include omnitechapp *.png
+recursive-include omnitechapp *.py
+recursive-include omnitechapp *.svg
+recursive-include omnitechapp *.txt
+recursive-exclude omnitechapp *.pyc
