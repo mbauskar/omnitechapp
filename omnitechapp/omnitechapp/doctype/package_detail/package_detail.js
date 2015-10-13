@@ -1,12 +1,9 @@
 cur_frm.cscript.onload = function(doc, dt, dn) {
 	if(has_common(user_roles, ["Administrator", "System Manager"])) {
-		// if(!cur_frm.roles_editor) {
-			var module_area = $('<div style="min-height: 300px">')
-				.appendTo(cur_frm.fields_dict.modules_html.wrapper);
-			cur_frm.module_editor = new frappe.ModuleEditor(cur_frm, module_area)
-		// } else {
-		// 	cur_frm.roles_editor.show();
-		// }
+		$(cur_frm.fields_dict.modules_html.wrapper).empty();
+		var module_area = $('<div style="min-height: 300px">')
+			.appendTo(cur_frm.fields_dict.modules_html.wrapper);
+		cur_frm.module_editor = new frappe.ModuleEditor(cur_frm, module_area)
 	}
 }
 
