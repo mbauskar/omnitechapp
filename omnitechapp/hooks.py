@@ -71,7 +71,7 @@ api_name = "omniClient"
 
 doc_events = {
 	"User": {
-		"validate": "omnitechapp.custom_user.validate",
+		"validate": "omnitechapp.validate.validate_user",
 	}
 }
 
