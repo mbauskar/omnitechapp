@@ -83,3 +83,29 @@ def get_user_package_in_json_format(request):
         "allowed_modules":package.get("P_MODULES"),
         "package_id":package.get("P_PACKAGE_ID")
     })
+
+# TODO
+def validate_user(doc, method):
+    pkg = get_package_detail()
+    validate_users_count(pkg)
+    validate_users_role()
+    validate_allowed_modules()
+
+def get_package_detail():
+    pkg = frappe.get_doc("Package Detail", "Package Detail")
+    return pkg.as_dict()
+
+def validate_users_count(pkg):
+    min_users = pkg.get("minimum_users")
+    max_users = pkg.get("maximum_users")
+
+    # get and check the current user count
+    query = """SELECT count(name) FROM `tabUser` WHERE name NOT IN ['Guest','Administrator']"""
+    result = frappe.db.sql(query, as_list=True)
+    frappe.errprint(result)
+
+def validate_users_role():
+    pass
+
+def validate_allowed_modules():
+    pass
