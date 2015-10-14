@@ -1,0 +1,11 @@
+{
+ "allowed_modules": "Activity,Calendar,File Manager,Installer,Learn,Messages,Notes,To Do", 
+ "creation": "2015-10-13 16:54:35.696888", 
+ "docstatus": 0, 
+ "doctype": "Package Detail", 
+ "minimum_users": 1, 
+ "modified": "2015-10-13 16:54:35.696888", 
+ "modified_by": "Administrator", 
+ "name": "Package Detail", 
+ "owner": "Administrator"
+}
