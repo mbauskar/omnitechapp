@@ -100,9 +100,12 @@ def validate_users_count(pkg):
     max_users = pkg.get("maximum_users")
 
     # get and check the current user count
-    query = """SELECT count(name) FROM `tabUser` WHERE name NOT IN ['Guest','Administrator']"""
+    query = """SELECT count(name) FROM `tabUser` WHERE name NOT IN ('Guest','Administrator')"""
     result = frappe.db.sql(query, as_list=True)
-    frappe.errprint(result)
+    if result:
+        ttl_users = cint(result[0][0])
+        if ttl_users == max_users:
+            frappe.throw("Can not create new user, You already have a maximum number of users")
 
 def validate_users_role():
     pass
