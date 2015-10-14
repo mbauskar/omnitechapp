@@ -62,17 +62,18 @@ app_version = "0.0.1"
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
+# api ref
+api_name = "omniClient"
+
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"User": {
+		"validate": "omnitechapp.omnitechapp.utils.custom_user.validate",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
@@ -106,4 +107,3 @@ app_version = "0.0.1"
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "omnitechapp.event.get_events"
 # }
-

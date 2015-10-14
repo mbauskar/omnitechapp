@@ -13,20 +13,22 @@ class PackageDetail(Document):
 def update_user_package(pkg_json):
 	"""Update the Package Details doctype with pkg_json content"""
 	try:
-		# TODO validation on minimum and maximum number of user
 		print "Updating the USER PACKAGE"
+
 		pkg = json.loads(pkg_json)
 		for field, value in pkg.iteritems():
 			frappe.db.set_value("Package Detail", "Package Detail", field, value)
 		frappe.db.commit()
+
 		print "USER PACKAGE updated successfully"
+		return True
 	except Exception, e:
 		import traceback
 		print "Error while updating package"
-		# TODO disable site ?
 		print traceback.format_exc();
+		raise Exception("ERROR : %s"%(e))
 
-# modules
+# all erp, frappe modules
 modules = [
 	"Accounts", "Activity", "Api Handler", "Buying", "CRM", "Calendar", "Core",
 	"File Manager", "HR", "Installer", "Integrations", "Learn", "Manufacturing",
