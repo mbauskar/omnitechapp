@@ -84,6 +84,7 @@ def get_user_package_in_json_format(request):
         "package_id":package.get("P_PACKAGE_ID")
     })
 
+# User Valdate methods
 # TODO
 def validate_user(doc, method):
     pkg = get_package_detail()

@@ -21,7 +21,8 @@ def handle():
     try:
         validate_request()
         pkg = get_user_package_in_json_format(frappe.local.form_dict.data)
-    	update_user_package(pkg)
+    	if not update_user_package(pkg):
+            raise Exception("Error while updating package")
     except Exception, e:
     	import traceback
     	print traceback.format_exc()
