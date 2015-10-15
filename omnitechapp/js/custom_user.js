@@ -1,11 +1,15 @@
 frappe.ui.form.on("User",{
     onload: function(frm){
         // hide or unhide role according to package
-        get_modules();
+        // if user is admin then skip
+        if(user != "Administrator")
+            get_modules();
     },
     reload: function(frm){
         // hide or unhide role according to package
-        get_modules();
+        // if user is admin then skip
+        if(user != "Administrator")
+            get_modules();
     }
 });
 
