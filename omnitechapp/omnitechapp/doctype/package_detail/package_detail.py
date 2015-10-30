@@ -77,3 +77,13 @@ def get_roles_to_restrict(doc):
 		"roles_to_hide": restricted_roles,
 		"allowed_modules": allowed_modules
 	}
+
+@frappe.whitelist()
+def get_allowed_roles():
+	doc = frappe.get_doc("Package Detail", "Package Detail")
+	if doc:
+		all_roles = [r[0] for r in frappe.db.sql("""select name from tabRole where name not in ('Administrator', 'Guest', 'All') order by name""")]
+		restricted_roles = get_roles_to_restrict(doc)
+		return [role for role in all_roles if role not in restricted_roles.get("roles_to_hide")]
+	else:
+		return None
