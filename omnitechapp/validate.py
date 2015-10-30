@@ -10,12 +10,12 @@ def validate_request():
     validate_request_parameters()
 
 def validate_url():
-	path = frappe.request.path[1:].split("/",2)
+    path = frappe.request.path[1:].split("/",2)
     # path[1] in services_fields.keys() <= check if url is correct
-	if len(path) == 2 and path[1] == "setUserPackage":
-		frappe.local.form_dict.cmd = path[1]
-	else:
-		frappe.throw(_("Invalid URL"))
+    if len(path) == 2 and path[1] == "setUserPackage":
+    	frappe.local.form_dict.cmd = path[1]
+    else:
+    	frappe.throw(_("Invalid URL"))
 
 def validate_authentication_token():
     request = json.loads(frappe.local.form_dict.data)
@@ -87,10 +87,11 @@ def get_user_package_in_json_format(request):
 # User Valdate methods
 # TODO
 def validate_user(doc, method):
-    pkg = get_package_detail()
-    validate_users_count(pkg)
-    validate_users_role()
-    validate_allowed_modules()
+    if not frappe.db.get_value("User",{ "email":doc.email }, "name"):
+        pkg = get_package_detail()
+        validate_users_count(pkg)
+        validate_users_role()
+        validate_allowed_modules()
 
 def get_package_detail():
     pkg = frappe.get_doc("Package Detail", "Package Detail")
@@ -101,7 +102,7 @@ def validate_users_count(pkg):
     max_users = pkg.get("maximum_users")
 
     # get and check the current user count
-    query = """SELECT count(name) FROM `tabUser` WHERE name NOT IN ('Guest','Administrator')"""
+    query = """SELECT count(name) FROM `tabUser` WHERE name NOT IN ('Guest')"""
     result = frappe.db.sql(query, as_list=True)
     if result:
         ttl_users = cint(result[0][0])
