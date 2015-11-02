@@ -18,6 +18,8 @@ def update_user_package(pkg_json):
 		pkg = json.loads(pkg_json)
 		for field, value in pkg.iteritems():
 			frappe.db.set_value("Package Detail", "Package Detail", field, value)
+		# TODO remove the admin roles
+		remove_admin_roles()
 		frappe.db.commit()
 
 		print "USER PACKAGE updated successfully"
@@ -87,3 +89,18 @@ def get_allowed_roles():
 		return [role for role in all_roles if role not in restricted_roles.get("roles_to_hide")]
 	else:
 		return None
+
+def remove_admin_roles():
+	"""Remove all the Administrator roles except allowed roles"""
+	try:
+		roles = ["'%s'"%(role) for role in get_allowed_roles()]
+		
+		if not roles:
+			frappe.throw("Error occured during setup, Please contact Administrator")
+		
+		query = """ DELETE FROM tabUserRole WHERE parent='Administrator' AND
+					role NOT IN ('Administrator',%s)"""%(",".join(roles))
+		
+		frappe.db.sql(query)
+	except Exception, e:
+		frappe.throw(e)
