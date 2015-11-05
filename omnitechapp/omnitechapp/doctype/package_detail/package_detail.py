@@ -96,7 +96,7 @@ def remove_admin_roles():
 		roles = ["'%s'"%(role) for role in get_allowed_roles()]
 		
 		if not roles:
-			frappe.throw("Error occured during setup, Please contact Administrator")
+			frappe.throw("Error occured during update, Please contact Administrator")
 		
 		query = """ DELETE FROM tabUserRole WHERE parent='Administrator' AND
 					role NOT IN ('Administrator',%s)"""%(",".join(roles))
